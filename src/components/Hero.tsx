@@ -4,7 +4,7 @@ export const Hero = () => {
   return (
     <div className="relative bg-gradient-to-b from-white via-gray-50 to-gray-100 py-24 sm:py-32">
       <div className="container mx-auto px-4">
-        <div className="text-center opacity-0 animate-fade-up">
+        <div className="text-center animate-fade-up">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             Empower Your Business with{" "}
             <span className="text-primary bg-primary/10 px-2 rounded">AI Automation</span>
