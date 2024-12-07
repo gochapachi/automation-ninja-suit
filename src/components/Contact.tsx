@@ -19,7 +19,7 @@ export const Contact = () => {
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Get in touch with our team
           </p>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
+          <p className="mt-6 text-lg leading-8 text-gray-700">
             Ready to transform your business with AI automation? Contact us today
             for a personalized demo.
           </p>
@@ -44,6 +44,7 @@ export const Contact = () => {
                   name="first-name"
                   id="first-name"
                   autoComplete="given-name"
+                  className="shadow-sm"
                 />
               </div>
             </div>
@@ -60,6 +61,7 @@ export const Contact = () => {
                   name="last-name"
                   id="last-name"
                   autoComplete="family-name"
+                  className="shadow-sm"
                 />
               </div>
             </div>
@@ -76,6 +78,7 @@ export const Contact = () => {
                   name="email"
                   id="email"
                   autoComplete="email"
+                  className="shadow-sm"
                 />
               </div>
             </div>
@@ -91,13 +94,13 @@ export const Contact = () => {
                   name="message"
                   id="message"
                   rows={4}
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
           </div>
           <div className="mt-10">
-            <Button type="submit" className="w-full bg-primary hover:bg-primary/90 transition-all duration-300 hover:scale-105">
+            <Button type="submit" className="w-full bg-primary hover:bg-primary/90 transition-all duration-300 hover:scale-105 shadow-lg">
               Send message
             </Button>
           </div>

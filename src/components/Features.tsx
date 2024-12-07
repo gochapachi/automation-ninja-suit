@@ -56,7 +56,7 @@ export const Features = () => {
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Everything you need to automate your business
           </p>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
+          <p className="mt-6 text-lg leading-8 text-gray-700">
             Our "Startup in a Box" solution covers all critical aspects of your
             business operations, ensuring seamless automation across departments.
           </p>
@@ -78,16 +78,16 @@ export const Features = () => {
                   transitionDelay: `${index * 100}ms`,
                 }}
               >
-                <div className="rounded-lg bg-primary/10 p-2 ring-1 ring-primary/20">
+                <div className="rounded-lg bg-primary/15 p-2 ring-2 ring-primary/30 shadow-md">
                   <feature.icon
                     className="h-6 w-6 text-primary"
                     aria-hidden="true"
                   />
                 </div>
-                <dt className="mt-4 font-semibold text-gray-900">
+                <dt className="mt-4 font-semibold text-gray-900 text-lg">
                   {feature.name}
                 </dt>
-                <dd className="mt-2 leading-7 text-gray-600">
+                <dd className="mt-2 leading-7 text-gray-700">
                   {feature.description}
                 </dd>
               </div>

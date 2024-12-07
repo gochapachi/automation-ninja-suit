@@ -45,7 +45,7 @@ const tiers = [
 
 export const Pricing = () => {
   return (
-    <div className="py-24 sm:py-32 bg-gray-50">
+    <div className="py-24 sm:py-32 bg-gray-100">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-base font-semibold leading-7 text-primary">
@@ -59,7 +59,7 @@ export const Pricing = () => {
           {tiers.map((tier, index) => (
             <div
               key={tier.name}
-              className="flex flex-col justify-between rounded-3xl bg-white p-8 ring-1 ring-gray-200 xl:p-10 animate-fade-up"
+              className="flex flex-col justify-between rounded-3xl bg-white p-8 ring-2 ring-gray-200 xl:p-10 animate-fade-up shadow-xl hover:shadow-2xl transition-all duration-300"
               style={{
                 animationDelay: `${index * 100}ms`,
               }}
@@ -70,7 +70,7 @@ export const Pricing = () => {
                     {tier.name}
                   </h3>
                 </div>
-                <p className="mt-4 text-sm leading-6 text-gray-600">
+                <p className="mt-4 text-sm leading-6 text-gray-700">
                   {tier.description}
                 </p>
                 <p className="mt-6 flex items-baseline gap-x-1">
@@ -83,7 +83,7 @@ export const Pricing = () => {
                 </p>
                 <ul
                   role="list"
-                  className="mt-8 space-y-3 text-sm leading-6 text-gray-600"
+                  className="mt-8 space-y-3 text-sm leading-6 text-gray-700"
                 >
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex gap-x-3">
@@ -97,7 +97,7 @@ export const Pricing = () => {
                 </ul>
               </div>
               <Button
-                className="mt-8 bg-primary hover:bg-primary/90"
+                className="mt-8 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                 size="lg"
               >
                 Get started
