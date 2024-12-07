@@ -4,7 +4,7 @@ export const Hero = () => {
   return (
     <div className="relative bg-gradient-to-b from-white to-gray-50 py-24 sm:py-32">
       <div className="container mx-auto px-4">
-        <div className="text-center animate-fade-up">
+        <div className="text-center opacity-0 animate-fade-up">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             Empower Your Business with{" "}
             <span className="text-primary">AI Automation</span>
@@ -17,14 +17,14 @@ export const Hero = () => {
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-white px-8"
+              className="bg-primary hover:bg-primary/90 text-white px-8 transition-all duration-300 hover:scale-105"
             >
               Get Started
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="border-primary text-primary hover:bg-primary/10"
+              className="border-primary text-primary hover:bg-primary/10 transition-all duration-300 hover:scale-105"
             >
               Learn More
             </Button>

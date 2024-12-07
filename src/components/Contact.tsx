@@ -1,8 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useInView } from "react-intersection-observer";
 
 export const Contact = () => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   return (
     <div className="py-24 sm:py-32 bg-white">
       <div className="container mx-auto px-4">
@@ -18,7 +24,12 @@ export const Contact = () => {
             for a personalized demo.
           </p>
         </div>
-        <form className="mx-auto mt-16 max-w-xl animate-fade-up">
+        <form 
+          ref={ref}
+          className={`mx-auto mt-16 max-w-xl transform transition-all duration-700 ${
+            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
             <div>
               <label
@@ -86,7 +97,7 @@ export const Contact = () => {
             </div>
           </div>
           <div className="mt-10">
-            <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
+            <Button type="submit" className="w-full bg-primary hover:bg-primary/90 transition-all duration-300 hover:scale-105">
               Send message
             </Button>
           </div>

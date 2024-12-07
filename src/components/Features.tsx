@@ -5,6 +5,7 @@ import {
   Briefcase,
   CreditCard,
 } from "lucide-react";
+import { useInView } from "react-intersection-observer";
 
 const features = [
   {
@@ -40,6 +41,11 @@ const features = [
 ];
 
 export const Features = () => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   return (
     <div className="py-24 sm:py-32 bg-white">
       <div className="container mx-auto px-4">
@@ -55,12 +61,22 @@ export const Features = () => {
             business operations, ensuring seamless automation across departments.
           </p>
         </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+        <div 
+          ref={ref}
+          className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none"
+        >
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-            {features.map((feature) => (
+            {features.map((feature, index) => (
               <div
                 key={feature.name}
-                className="flex flex-col items-start animate-fade-up"
+                className={`flex flex-col items-start transform transition-all duration-700 ${
+                  inView
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-10"
+                }`}
+                style={{
+                  transitionDelay: `${index * 100}ms`,
+                }}
               >
                 <div className="rounded-lg bg-primary/10 p-2 ring-1 ring-primary/20">
                   <feature.icon
