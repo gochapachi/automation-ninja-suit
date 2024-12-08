@@ -41,11 +41,15 @@ export const FAQ = () => {
   ];
 
   return (
-    <section className="py-24 bg-white">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-white relative overflow-hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">
-            Frequently Asked Questions
+          <h2 className="text-4xl font-bold text-center mb-16 text-gray-900 relative group perspective-1000">
+            <span className="relative z-10 inline-block transform transition-all duration-500 group-hover:scale-110 group-hover:translate-z-12">
+              Frequently Asked Questions
+            </span>
+            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-transparent rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </h2>
           <div
             ref={ref}
@@ -58,13 +62,18 @@ export const FAQ = () => {
                 <AccordionItem
                   key={index}
                   value={`item-${index}`}
-                  className="border rounded-lg px-4"
+                  className="border rounded-lg px-4 group perspective-1000"
                 >
-                  <AccordionTrigger className="text-left">
-                    {faq.question}
+                  <AccordionTrigger className="text-left relative">
+                    <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-transparent rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <span className="relative z-10 transform transition-all duration-500 group-hover:translate-x-2">
+                      {faq.question}
+                    </span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-700">
-                    {faq.answer}
+                  <AccordionContent className="text-gray-700 relative">
+                    <span className="block transform transition-all duration-500 group-hover:translate-x-2">
+                      {faq.answer}
+                    </span>
                   </AccordionContent>
                 </AccordionItem>
               ))}

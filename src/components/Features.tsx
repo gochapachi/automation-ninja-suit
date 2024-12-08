@@ -47,14 +47,19 @@ export const Features = () => {
   });
 
   return (
-    <div className="py-24 sm:py-32 bg-white">
-      <div className="container mx-auto px-4">
+    <div className="py-24 sm:py-32 bg-white relative overflow-hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      <div className="container mx-auto px-4 relative">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-primary">
-            Comprehensive Solutions
+          <h2 className="text-base font-semibold leading-7 text-primary relative inline-block group">
+            <span className="relative z-10">Comprehensive Solutions</span>
+            <div className="absolute -inset-2 bg-primary/10 rounded-lg transform rotate-3 group-hover:rotate-6 transition-transform duration-500"></div>
           </h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Everything you need to automate your business
+          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl relative group perspective-1000">
+            <span className="relative z-10 inline-block transform transition-all duration-500 group-hover:scale-110 group-hover:translate-z-12">
+              Everything you need to automate your business
+            </span>
+            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-transparent rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-700">
             Our "Startup in a Box" solution covers all critical aspects of your
@@ -69,7 +74,7 @@ export const Features = () => {
             {features.map((feature, index) => (
               <div
                 key={feature.name}
-                className={`flex flex-col items-start transform transition-all duration-700 ${
+                className={`flex flex-col items-start transform transition-all duration-700 group perspective-1000 ${
                   inView
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"
@@ -78,16 +83,19 @@ export const Features = () => {
                   transitionDelay: `${index * 100}ms`,
                 }}
               >
-                <div className="rounded-lg bg-primary/15 p-2 ring-2 ring-primary/30 shadow-md">
-                  <feature.icon
-                    className="h-6 w-6 text-primary"
-                    aria-hidden="true"
-                  />
+                <div className="relative">
+                  <div className="absolute -inset-2 bg-gradient-to-r from-primary/30 to-primary/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="rounded-lg bg-primary/15 p-2 ring-2 ring-primary/30 shadow-md transform transition-transform duration-500 group-hover:rotate-y-12 group-hover:scale-110 relative">
+                    <feature.icon
+                      className="h-6 w-6 text-primary"
+                      aria-hidden="true"
+                    />
+                  </div>
                 </div>
-                <dt className="mt-4 font-semibold text-gray-900 text-lg">
+                <dt className="mt-4 font-semibold text-gray-900 text-lg transform transition-all duration-500 group-hover:translate-x-2">
                   {feature.name}
                 </dt>
-                <dd className="mt-2 leading-7 text-gray-700">
+                <dd className="mt-2 leading-7 text-gray-700 transform transition-all duration-500 group-hover:translate-x-2">
                   {feature.description}
                 </dd>
               </div>
