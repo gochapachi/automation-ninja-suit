@@ -19,7 +19,16 @@ const Navigation = () => {
               <img
                 src={logoLight}
                 alt="Anagata IT"
-                className="h-10 w-auto transform transition-all duration-300 hover:scale-110"
+                className="h-10 w-auto transform transition-all duration-300 hover:scale-110 dark:hidden"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                }}
+              />
+              <img
+                src={logoDark}
+                alt="Anagata IT"
+                className="hidden h-10 w-auto transform transition-all duration-300 hover:scale-110 dark:block"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.nextElementSibling?.classList.remove('hidden');
