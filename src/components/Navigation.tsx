@@ -1,4 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
+import logoLight from "../assets/logo-light.png";
+import logoDark from "../assets/logo-dark.png";
 
 const Navigation = () => {
   const location = useLocation();
@@ -13,7 +15,11 @@ const Navigation = () => {
             to="/" 
             className="text-xl font-bold text-primary transform transition-all duration-300 hover:scale-110 hover:-rotate-2"
           >
-            Anagata IT
+            <img
+              src={logoLight}
+              alt="Anagata IT"
+              className="h-10 w-auto transform transition-all duration-300 hover:scale-110"
+            />
           </Link>
           <div className="hidden md:flex space-x-8 perspective-1000">
             {[
