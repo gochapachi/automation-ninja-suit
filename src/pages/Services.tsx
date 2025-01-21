@@ -1,7 +1,7 @@
 import { Features } from "@/components/Features";
-import { Pricing } from "@/components/Pricing";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { AppointmentBooking } from "@/components/AppointmentBooking";
 
 const Services = () => {
   return (
@@ -40,11 +40,8 @@ const Services = () => {
         <Features />
       </div>
 
-      {/* Pricing Section with enhanced animations */}
-      <div className="relative">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-        <Pricing />
-      </div>
+      {/* Appointment Booking Section */}
+      <AppointmentBooking />
 
       {/* CTA Section */}
       <div className="relative py-16 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5">

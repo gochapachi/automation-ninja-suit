@@ -1,6 +1,5 @@
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
-import { Pricing } from "@/components/Pricing";
 import { Contact } from "@/components/Contact";
 import { Statistics } from "@/components/Statistics";
 import { Testimonials } from "@/components/Testimonials";
@@ -10,6 +9,7 @@ import { WhyUs } from "@/components/WhyUs";
 import { WhoWeAre } from "@/components/WhoWeAre";
 import { HowItWorks } from "@/components/HowItWorks";
 import { FAQ } from "@/components/FAQ";
+import { AppointmentBooking } from "@/components/AppointmentBooking";
 
 const Index = () => {
   return (
@@ -23,7 +23,7 @@ const Index = () => {
       <HowItWorks />
       <Testimonials />
       <FAQ />
-      <Pricing />
+      <AppointmentBooking />
       <BlogPreview />
       <Contact />
     </div>
