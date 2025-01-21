@@ -1,33 +1,45 @@
 import { useInView } from "react-intersection-observer";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-
-const posts = [
-  {
-    title: "The Future of AI Automation in Indian Business",
-    description: "Explore how AI automation is transforming the Indian business landscape and what it means for your company.",
-    date: "Mar 16, 2024",
-    category: "AI & Automation",
-  },
-  {
-    title: "Maximizing Efficiency with Startup in a Box",
-    description: "Learn how our comprehensive solution can streamline your business operations and boost productivity.",
-    date: "Mar 15, 2024",
-    category: "Product",
-  },
-  {
-    title: "5 Ways to Automate Your Marketing Operations",
-    description: "Discover practical strategies to leverage automation in your marketing efforts for better results.",
-    date: "Mar 14, 2024",
-    category: "Marketing",
-  },
-];
+import { useEffect } from "react";
 
 export const BlogPreview = () => {
-  const { ref, inView } = useInView({
+  const { ref, inView, entry } = useInView({
     triggerOnce: true,
     threshold: 0.1,
+    rootMargin: "50px",
   });
+
+  useEffect(() => {
+    // Cleanup function
+    return () => {
+      if (entry?.target) {
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "none";
+      }
+    };
+  }, [entry]);
+
+  const posts = [
+    {
+      title: "The Future of AI Automation in Indian Business",
+      description: "Explore how AI automation is transforming the Indian business landscape and what it means for your company.",
+      date: "Mar 16, 2024",
+      category: "AI & Automation",
+    },
+    {
+      title: "Maximizing Efficiency with Startup in a Box",
+      description: "Learn how our comprehensive solution can streamline your business operations and boost productivity.",
+      date: "Mar 15, 2024",
+      category: "Product",
+    },
+    {
+      title: "5 Ways to Automate Your Marketing Operations",
+      description: "Discover practical strategies to leverage automation in your marketing efforts for better results.",
+      date: "Mar 14, 2024",
+      category: "Marketing",
+    },
+  ];
 
   return (
     <div className="py-24 sm:py-32 bg-gray-50">

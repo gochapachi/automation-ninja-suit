@@ -1,11 +1,23 @@
 import { useInView } from "react-intersection-observer";
 import { ArrowRight } from "lucide-react";
+import { useEffect } from "react";
 
 export const HowItWorks = () => {
-  const { ref, inView } = useInView({
+  const { ref, inView, entry } = useInView({
     triggerOnce: true,
     threshold: 0.1,
+    rootMargin: "50px",
   });
+
+  useEffect(() => {
+    // Cleanup function
+    return () => {
+      if (entry?.target) {
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "none";
+      }
+    };
+  }, [entry]);
 
   const steps = [
     {
