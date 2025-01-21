@@ -6,6 +6,7 @@ import {
   CreditCard,
 } from "lucide-react";
 import { useInView } from "react-intersection-observer";
+import { useNavigate } from "react-router-dom";
 
 const features = [
   {
@@ -13,30 +14,35 @@ const features = [
     description:
       "Automated brand creatives, scheduled posting, and dynamic content generation for consistent engagement.",
     icon: BarChart3,
+    path: "/services/marketing"
   },
   {
     name: "Sales Automations",
     description:
       "Streamlined CRM with automated follow-ups and comprehensive analytics for maximum efficiency.",
     icon: Briefcase,
+    path: "/services/sales"
   },
   {
     name: "HR Automations",
     description:
       "Simplified recruitment, seamless onboarding, and integrated attendance & payroll systems.",
     icon: Users,
+    path: "/services/hr"
   },
   {
     name: "Support Automations",
     description:
       "Smart ticket management, AI chatbots, and automated SLA tracking for superior customer service.",
     icon: MessageSquare,
+    path: "/services/support"
   },
   {
     name: "Accounts Automations",
     description:
       "Automated invoicing, expense tracking, and reconciliation for streamlined financial operations.",
     icon: CreditCard,
+    path: "/services/accounts"
   },
 ];
 
@@ -45,6 +51,8 @@ export const Features = () => {
     triggerOnce: true,
     threshold: 0.1,
   });
+  
+  const navigate = useNavigate();
 
   return (
     <div className="py-24 sm:py-32 bg-white relative overflow-hidden">
@@ -74,7 +82,7 @@ export const Features = () => {
             {features.map((feature, index) => (
               <div
                 key={feature.name}
-                className={`flex flex-col items-start transform transition-all duration-700 group perspective-1000 ${
+                className={`flex flex-col items-start transform transition-all duration-700 group perspective-1000 cursor-pointer ${
                   inView
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"
@@ -82,6 +90,7 @@ export const Features = () => {
                 style={{
                   transitionDelay: `${index * 100}ms`,
                 }}
+                onClick={() => navigate(feature.path)}
               >
                 <div className="relative">
                   <div className="absolute -inset-2 bg-gradient-to-r from-primary/30 to-primary/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
