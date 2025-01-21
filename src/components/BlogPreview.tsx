@@ -14,8 +14,9 @@ export const BlogPreview = () => {
     // Cleanup function
     return () => {
       if (entry?.target) {
-        entry.target.style.opacity = "1";
-        entry.target.style.transform = "none";
+        const element = entry.target as HTMLElement;
+        element.style.opacity = "1";
+        element.style.transform = "none";
       }
     };
   }, [entry]);
