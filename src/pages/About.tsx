@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useInView } from "react-intersection-observer";
+import { AppointmentBooking } from "@/components/AppointmentBooking";
+import { Rocket, Heart, Trophy, Users, Target, Zap } from "lucide-react";
 
 const About = () => {
   const { ref: contentRef, inView: contentInView } = useInView({
@@ -7,7 +9,17 @@ const About = () => {
     threshold: 0.1,
   });
 
-  const { ref: timelineRef, inView: timelineInView } = useInView({
+  const { ref: valuesRef, inView: valuesInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const { ref: teamRef, inView: teamInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const { ref: achievementsRef, inView: achievementsInView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
@@ -17,32 +29,9 @@ const About = () => {
     threshold: 0.1,
   });
 
-  const timelineEvents = [
-    {
-      year: "2020",
-      title: "Foundation",
-      description: "Anagata IT Solutions was established with a vision to revolutionize automation."
-    },
-    {
-      year: "2021",
-      title: "First Major Project",
-      description: "Successfully delivered our first enterprise-scale automation solution."
-    },
-    {
-      year: "2022",
-      title: "Expansion",
-      description: "Expanded our team and opened new office in Lucknow."
-    },
-    {
-      year: "2023",
-      title: "Innovation Hub",
-      description: "Launched our AI Innovation Hub for research and development."
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-gray-100">
-      {/* Main Content Section */}
+      {/* Hero Section */}
       <div 
         ref={contentRef}
         className={`container mx-auto px-4 py-24 transition-all duration-1000 transform perspective-1000
@@ -56,66 +45,95 @@ const About = () => {
             </span>
           </h1>
           <p className="text-lg text-gray-700 mb-8 transform transition-all duration-500 hover:translate-y-1">
-            We are an emerging technology company based in Lucknow, Uttar Pradesh, India, 
-            specializing in AI and automation services. Our mission is to become the #1 AI 
-            automation service provider in India, empowering businesses with cutting-edge solutions.
+            Pioneering the future of automation in India, one innovation at a time.
           </p>
-          <div className="grid md:grid-cols-2 gap-8 mt-12">
-            <div className="bg-white p-6 rounded-lg shadow-lg transform transition-all duration-500 hover:scale-105 hover:rotate-1 hover:shadow-xl">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">Our Vision</h2>
-              <p className="text-gray-700">
-                To revolutionize the Indian business landscape by providing scalable, 
-                affordable, and intelligent automation solutions.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg transform transition-all duration-500 hover:scale-105 hover:-rotate-1 hover:shadow-xl">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">Our Mission</h2>
-              <p className="text-gray-700">
-                To enable businesses across India to leverage the power of AI and 
-                automation for simplifying their processes and achieving sustainable growth.
-              </p>
-            </div>
-          </div>
         </div>
       </div>
 
-      {/* Timeline Section */}
+      {/* Values Section */}
       <div 
-        ref={timelineRef}
+        ref={valuesRef}
         className={`bg-white py-24 transition-all duration-1000 transform
-          ${timelineInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+          ${valuesInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">Our Journey</h2>
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20"></div>
-            
-            {/* Timeline Events */}
-            {timelineEvents.map((event, index) => (
-              <div 
-                key={event.year}
-                className={`relative flex items-center mb-12 group perspective-1000
-                  ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}
-              >
-                {/* Timeline Dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-primary shadow-lg shadow-primary/50"></div>
-                
-                {/* Content Card */}
-                <div 
-                  className={`w-5/12 p-6 bg-white rounded-lg shadow-lg transform transition-all duration-500
-                    hover:scale-105 hover:shadow-xl hover:-translate-y-1
-                    ${index % 2 === 0 ? 'mr-auto hover:rotate-1' : 'ml-auto hover:-rotate-1'}`}
-                >
-                  <div className="text-primary font-bold text-xl mb-2">{event.year}</div>
-                  <h3 className="text-xl font-semibold mb-2">{event.title}</h3>
-                  <p className="text-gray-600">{event.description}</p>
+          <h2 className="text-3xl font-bold text-center mb-16">Our Core Values</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { icon: Heart, title: "Passion", description: "Driven by innovation and excellence" },
+              { icon: Trophy, title: "Excellence", description: "Committed to delivering the best" },
+              { icon: Users, title: "Collaboration", description: "Growing together with our clients" }
+            ].map((value, index) => (
+              <div key={value.title} className="group perspective-1000">
+                <div className="relative p-6 bg-gray-50 rounded-lg shadow-lg transform transition-all duration-500 hover:scale-105 hover:rotate-3 hover:shadow-xl">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-primary/10 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <value.icon className="w-12 h-12 text-primary mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
+                  <p className="text-gray-600">{value.description}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Team Section */}
+      <div 
+        ref={teamRef}
+        className={`py-24 transition-all duration-1000 transform
+          ${teamInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+      >
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-16">Meet Our Team</h2>
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              { name: "Rajesh Kumar", role: "CEO", image: "https://i.pravatar.cc/150?img=1" },
+              { name: "Priya Sharma", role: "CTO", image: "https://i.pravatar.cc/150?img=2" },
+              { name: "Amit Patel", role: "Head of Innovation", image: "https://i.pravatar.cc/150?img=3" },
+              { name: "Neha Gupta", role: "Lead Developer", image: "https://i.pravatar.cc/150?img=4" }
+            ].map((member) => (
+              <div key={member.name} className="group perspective-1000">
+                <div className="relative p-6 bg-white rounded-lg shadow-lg transform transition-all duration-500 hover:scale-105 hover:-rotate-3 hover:shadow-xl text-center">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-primary/10 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <img src={member.image} alt={member.name} className="w-32 h-32 rounded-full mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
+                  <p className="text-gray-600">{member.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Achievements Section */}
+      <div 
+        ref={achievementsRef}
+        className={`bg-white py-24 transition-all duration-1000 transform
+          ${achievementsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+      >
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-16">Our Achievements</h2>
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              { number: "500+", label: "Happy Clients" },
+              { number: "1000+", label: "Projects Completed" },
+              { number: "50+", label: "Team Members" },
+              { number: "24/7", label: "Support" }
+            ].map((achievement) => (
+              <div key={achievement.label} className="group perspective-1000">
+                <div className="relative p-6 bg-gray-50 rounded-lg shadow-lg transform transition-all duration-500 hover:scale-105 hover:rotate-3 hover:shadow-xl text-center">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-primary/10 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <h3 className="text-3xl font-bold text-primary mb-2">{achievement.number}</h3>
+                  <p className="text-gray-600">{achievement.label}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Appointment Booking Section */}
+      <AppointmentBooking />
 
       {/* CTA Section */}
       <div 
