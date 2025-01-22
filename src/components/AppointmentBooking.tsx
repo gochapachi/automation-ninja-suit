@@ -53,7 +53,7 @@ export const AppointmentBooking = () => {
   };
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-12 bg-white relative overflow-hidden min-h-screen flex items-center">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto text-center mb-12">
@@ -105,6 +105,17 @@ export const AppointmentBooking = () => {
                 type="text" 
                 placeholder={funnyPlaceholders.name}
                 className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl group-hover:rotate-1"
+              />
+            </div>
+
+            <div className="group perspective-1000">
+              <label className="block text-sm font-medium mb-2 group-hover:text-primary transition-colors">
+                Phone Number (For Emergency Meme Delivery! 📱)
+              </label>
+              <Input 
+                type="tel" 
+                placeholder="Your Bat-Signal Number"
+                className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl group-hover:-rotate-1"
               />
             </div>
             

@@ -1,6 +1,5 @@
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
-import { Contact } from "@/components/Contact";
 import { Statistics } from "@/components/Statistics";
 import { Testimonials } from "@/components/Testimonials";
 import { BlogPreview } from "@/components/BlogPreview";
@@ -10,6 +9,7 @@ import { WhoWeAre } from "@/components/WhoWeAre";
 import { HowItWorks } from "@/components/HowItWorks";
 import { FAQ } from "@/components/FAQ";
 import { AppointmentBooking } from "@/components/AppointmentBooking";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -25,7 +25,7 @@ const Index = () => {
       <FAQ />
       <AppointmentBooking />
       <BlogPreview />
-      <Contact />
+      <Footer />
     </div>
   );
 };
