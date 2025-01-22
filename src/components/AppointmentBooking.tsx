@@ -1,29 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useInView } from "react-intersection-observer";
-import { Calendar } from "@/components/ui/calendar";
-import { Calendar as CalendarIcon } from "lucide-react";
 import { useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { format } from "date-fns";
 import { useToast } from "@/components/ui/use-toast";
+import { FormField } from "./appointment/FormField";
+import { ServiceSelect } from "./appointment/ServiceSelect";
+import { CompanySizeSelect } from "./appointment/CompanySizeSelect";
+import { SourceSelect } from "./appointment/SourceSelect";
+import { DatePicker } from "./appointment/DatePicker";
 
 const funnyPlaceholders = {
   company: "Evil Corp™ (just kidding!)",
   name: "Your Superhero Name",
   email: "definitely.not.a.robot@human.com",
+  phone: "Your Bat-Signal Number",
 };
 
 const funnyLabels = {
@@ -31,6 +21,7 @@ const funnyLabels = {
   company: "Secret Identity (Company Name)",
   name: "Who's The Boss?",
   email: "Where Should We Send The Memes?",
+  phone: "Phone Number (For Emergency Meme Delivery! 📱)",
   size: "How Big Is Your Empire?",
   source: "How Did You Find Our Secret Lair?",
   date: "When Shall We Plot World Domination?",
@@ -70,135 +61,56 @@ export const AppointmentBooking = () => {
           <div className="grid md:grid-cols-2 gap-6">
             {/* Left Column */}
             <div className="space-y-6">
-              <div className="group perspective-1000">
-                <label className="block text-sm font-medium mb-2 group-hover:text-primary transition-colors">
-                  {funnyLabels.service}
-                </label>
-                <Select>
-                  <SelectTrigger className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl group-hover:rotate-1">
-                    <SelectValue placeholder="Choose your destiny..." />
-                  </SelectTrigger>
-                  <SelectContent className="animate-bounce">
-                    <SelectItem value="marketing">Marketing Wizardry</SelectItem>
-                    <SelectItem value="sales">Sales Sorcery</SelectItem>
-                    <SelectItem value="hr">Human Resources Magic</SelectItem>
-                    <SelectItem value="support">Support Spells</SelectItem>
-                    <SelectItem value="accounts">Accounting Alchemy</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              <FormField label={funnyLabels.service}>
+                <ServiceSelect />
+              </FormField>
               
-              <div className="group perspective-1000">
-                <label className="block text-sm font-medium mb-2 group-hover:text-primary transition-colors">
-                  {funnyLabels.company}
-                </label>
+              <FormField label={funnyLabels.company}>
                 <Input 
                   type="text" 
                   placeholder={funnyPlaceholders.company}
                   className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl group-hover:-rotate-1"
                 />
-              </div>
+              </FormField>
               
-              <div className="group perspective-1000">
-                <label className="block text-sm font-medium mb-2 group-hover:text-primary transition-colors">
-                  {funnyLabels.name}
-                </label>
+              <FormField label={funnyLabels.name}>
                 <Input 
                   type="text" 
                   placeholder={funnyPlaceholders.name}
                   className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl group-hover:rotate-1"
                 />
-              </div>
+              </FormField>
 
-              <div className="group perspective-1000">
-                <label className="block text-sm font-medium mb-2 group-hover:text-primary transition-colors">
-                  Phone Number (For Emergency Meme Delivery! 📱)
-                </label>
+              <FormField label={funnyLabels.phone}>
                 <Input 
                   type="tel" 
-                  placeholder="Your Bat-Signal Number"
+                  placeholder={funnyPlaceholders.phone}
                   className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl group-hover:-rotate-1"
                 />
-              </div>
+              </FormField>
             </div>
 
             {/* Right Column */}
             <div className="space-y-6">
-              <div className="group perspective-1000">
-                <label className="block text-sm font-medium mb-2 group-hover:text-primary transition-colors">
-                  {funnyLabels.email}
-                </label>
+              <FormField label={funnyLabels.email}>
                 <Input 
                   type="email" 
                   placeholder={funnyPlaceholders.email}
                   className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl group-hover:-rotate-1"
                 />
-              </div>
+              </FormField>
               
-              <div className="group perspective-1000">
-                <label className="block text-sm font-medium mb-2 group-hover:text-primary transition-colors">
-                  {funnyLabels.size}
-                </label>
-                <Select>
-                  <SelectTrigger className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl group-hover:rotate-1">
-                    <SelectValue placeholder="How mighty is your army?" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1-10">Tiny but Mighty (1-10)</SelectItem>
-                    <SelectItem value="11-50">Growing Legion (11-50)</SelectItem>
-                    <SelectItem value="51-200">Small Army (51-200)</SelectItem>
-                    <SelectItem value="201-500">Major Force (201-500)</SelectItem>
-                    <SelectItem value="500+">Empire Status (500+)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              <FormField label={funnyLabels.size}>
+                <CompanySizeSelect />
+              </FormField>
               
-              <div className="group perspective-1000">
-                <label className="block text-sm font-medium mb-2 group-hover:text-primary transition-colors">
-                  {funnyLabels.source}
-                </label>
-                <Select>
-                  <SelectTrigger className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl group-hover:-rotate-1">
-                    <SelectValue placeholder="Reveal your sources..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="search">Google (The All-Seeing Eye)</SelectItem>
-                    <SelectItem value="social">Social Media Scrolling Marathon</SelectItem>
-                    <SelectItem value="referral">A Little Bird Told Me</SelectItem>
-                    <SelectItem value="advertisement">Caught in Our Web of Ads</SelectItem>
-                    <SelectItem value="other">It Came to Me in a Dream</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              <FormField label={funnyLabels.source}>
+                <SourceSelect />
+              </FormField>
               
-              <div className="group perspective-1000">
-                <label className="block text-sm font-medium mb-2 group-hover:text-primary transition-colors">
-                  {funnyLabels.date}
-                </label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className={cn(
-                        "w-full justify-start text-left font-normal transform transition-all duration-300 hover:scale-105 hover:shadow-xl group-hover:rotate-1",
-                        !date && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {date ? format(date, "PPP") : "Pick a legendary date"}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
-                    <Calendar
-                      mode="single"
-                      selected={date}
-                      onSelect={setDate}
-                      initialFocus
-                      className="animate-bounce"
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
+              <FormField label={funnyLabels.date}>
+                <DatePicker date={date} setDate={setDate} />
+              </FormField>
             </div>
           </div>
           
