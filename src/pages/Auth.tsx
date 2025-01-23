@@ -9,36 +9,52 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      
+      if (isLogin) {
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
 
-      if (error) throw error;
+        if (signInError) throw signInError;
 
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", (await supabase.auth.getUser()).data.user?.id)
-        .single();
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", (await supabase.auth.getUser()).data.user?.id)
+          .single();
 
-      if (profile?.role !== "admin") {
-        await supabase.auth.signOut();
-        throw new Error("Unauthorized access");
+        if (!profile?.role) {
+          await supabase.auth.signOut();
+          throw new Error("No role assigned");
+        }
+
+        toast({
+          title: "Success",
+          description: "Logged in successfully",
+        });
+        navigate("/");
+      } else {
+        const { error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+        });
+
+        if (signUpError) throw signUpError;
+
+        toast({
+          title: "Success",
+          description: "Signed up successfully! Please check your email for verification.",
+        });
       }
-
-      toast({
-        title: "Success",
-        description: "Logged in successfully",
-      });
-      navigate("/admin/dashboard");
     } catch (error: any) {
       toast({
         title: "Error",
@@ -55,10 +71,10 @@ const Auth = () => {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Admin Login
+            {isLogin ? "Sign in to your account" : "Create a new account"}
           </h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleLogin}>
+        <form className="mt-8 space-y-6" onSubmit={handleAuth}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <Input
@@ -87,7 +103,18 @@ const Auth = () => {
               className="w-full"
               disabled={loading}
             >
-              {loading ? "Signing in..." : "Sign in"}
+              {loading ? "Processing..." : (isLogin ? "Sign in" : "Sign up")}
+            </Button>
+          </div>
+
+          <div className="text-center">
+            <Button
+              type="button"
+              variant="link"
+              onClick={() => setIsLogin(!isLogin)}
+              className="text-sm"
+            >
+              {isLogin ? "Need an account? Sign up" : "Already have an account? Sign in"}
             </Button>
           </div>
         </form>
