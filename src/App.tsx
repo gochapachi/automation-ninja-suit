@@ -9,6 +9,8 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
+import Auth from "./pages/Auth";
+import Dashboard from "./pages/admin/Dashboard";
 import MarketingAutomation from "./pages/services/MarketingAutomation";
 import SalesAutomation from "./pages/services/SalesAutomation";
 import HRAutomation from "./pages/services/HRAutomation";
@@ -35,6 +37,8 @@ const App = () => (
           <Route path="/services/accounts" element={<AccountsAutomation />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
