@@ -10,6 +10,7 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isResetPassword, setIsResetPassword] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -60,6 +61,34 @@ const Auth = () => {
     }
   };
 
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth/reset-password`,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Password reset email sent",
+        description: "Check your email for the password reset link",
+      });
+      setIsResetPassword(false);
+    } catch (error: any) {
+      console.error("Reset password error:", error);
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -70,8 +99,11 @@ const Auth = () => {
           email,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/auth`
-          }
+            emailRedirectTo: `${window.location.origin}/auth`,
+            data: {
+              email,
+            },
+          },
         });
 
         if (error) {
@@ -97,9 +129,17 @@ const Auth = () => {
           password,
         });
 
-        if (error) throw error;
-
-        if (data.user) {
+        if (error) {
+          if (error.message.includes("Invalid login credentials")) {
+            toast({
+              title: "Login failed",
+              description: "Invalid email or password. Please try again or reset your password.",
+              variant: "destructive",
+            });
+          } else {
+            throw error;
+          }
+        } else if (data.user) {
           const { data: profile } = await supabase
             .from("profiles")
             .select("role")
@@ -150,6 +190,43 @@ const Auth = () => {
     }
   };
 
+  if (isResetPassword) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8">
+          <div>
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+              Reset your password
+            </h2>
+          </div>
+          <form className="mt-8 space-y-6" onSubmit={handleResetPassword}>
+            <div>
+              <Input
+                type="email"
+                required
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col space-y-4">
+              <Button type="submit" disabled={loading}>
+                {loading ? "Sending..." : "Send reset instructions"}
+              </Button>
+              <Button
+                type="button"
+                variant="link"
+                onClick={() => setIsResetPassword(false)}
+              >
+                Back to login
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -188,6 +265,16 @@ const Auth = () => {
                 ? "Create Account"
                 : "Sign in"}
             </Button>
+
+            {!isSignUp && (
+              <Button
+                type="button"
+                variant="link"
+                onClick={() => setIsResetPassword(true)}
+              >
+                Forgot your password?
+              </Button>
+            )}
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
