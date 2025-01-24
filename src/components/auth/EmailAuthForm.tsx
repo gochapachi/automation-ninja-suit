@@ -31,6 +31,7 @@ export const EmailAuthForm = ({
 
     try {
       if (isSignUp) {
+        console.log("Attempting to sign up with email:", email);
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
@@ -41,6 +42,8 @@ export const EmailAuthForm = ({
             },
           },
         });
+
+        console.log("Sign up response:", { data, error });
 
         if (error) {
           if (error.message.includes("User already registered")) {
@@ -60,10 +63,13 @@ export const EmailAuthForm = ({
           });
         }
       } else {
+        console.log("Attempting to sign in with email:", email);
         const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
+
+        console.log("Sign in response:", { data, error });
 
         if (error) {
           if (error.message.includes("Invalid login credentials")) {
@@ -110,6 +116,7 @@ export const EmailAuthForm = ({
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            minLength={6}
           />
         </div>
       </div>
