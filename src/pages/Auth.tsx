@@ -16,8 +16,8 @@ const Auth = () => {
   useEffect(() => {
     checkUser();
     
-    // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log("Auth state changed:", event, session);
       if (session?.user) {
         const { data: profile } = await supabase
           .from("profiles")
@@ -41,6 +41,7 @@ const Auth = () => {
   const checkUser = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
+      console.log("Current user:", user);
       if (user) {
         const { data: profile } = await supabase
           .from("profiles")
@@ -64,41 +65,61 @@ const Auth = () => {
     setLoading(true);
 
     try {
-      const authAction = isSignUp
-        ? supabase.auth.signUp({
-            email,
-            password,
-          })
-        : supabase.auth.signInWithPassword({
-            email,
-            password,
-          });
-
-      const { data, error } = await authAction;
-
-      if (error) throw error;
-
-      if (data.user) {
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("role")
-          .eq("id", data.user.id)
-          .single();
-
-        toast({
-          title: "Success",
-          description: isSignUp
-            ? "Account created successfully"
-            : "Logged in successfully",
+      if (isSignUp) {
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/auth`
+          }
         });
 
-        if (profile?.role === "admin") {
-          navigate("/admin/dashboard");
-        } else {
-          navigate("/");
+        if (error) {
+          if (error.message.includes("User already registered")) {
+            toast({
+              title: "Account exists",
+              description: "This email is already registered. Please sign in instead.",
+              variant: "destructive",
+            });
+            setIsSignUp(false);
+          } else {
+            throw error;
+          }
+        } else if (data.user) {
+          toast({
+            title: "Success",
+            description: "Account created successfully. Please check your email for verification.",
+          });
+        }
+      } else {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) throw error;
+
+        if (data.user) {
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("role")
+            .eq("id", data.user.id)
+            .single();
+
+          toast({
+            title: "Success",
+            description: "Logged in successfully",
+          });
+
+          if (profile?.role === "admin") {
+            navigate("/admin/dashboard");
+          } else {
+            navigate("/");
+          }
         }
       }
     } catch (error: any) {
+      console.error("Auth error:", error);
       toast({
         title: "Error",
         description: error.message,
@@ -120,6 +141,7 @@ const Auth = () => {
 
       if (error) throw error;
     } catch (error: any) {
+      console.error("Google auth error:", error);
       toast({
         title: "Error",
         description: error.message,
