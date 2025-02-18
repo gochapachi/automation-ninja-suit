@@ -1,32 +1,39 @@
+
 import { Button } from "@/components/ui/button";
 import { useInView } from "react-intersection-observer";
 import { AppointmentBooking } from "@/components/AppointmentBooking";
 import { Rocket, Heart, Trophy, Users, Target, Zap } from "lucide-react";
 
 const About = () => {
+  // Combine observers with higher threshold and rootMargin
   const { ref: contentRef, inView: contentInView } = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.2,
+    rootMargin: "50px",
   });
 
   const { ref: valuesRef, inView: valuesInView } = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.2,
+    rootMargin: "50px",
   });
 
   const { ref: teamRef, inView: teamInView } = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.2,
+    rootMargin: "50px",
   });
 
   const { ref: achievementsRef, inView: achievementsInView } = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.2,
+    rootMargin: "50px",
   });
 
   const { ref: ctaRef, inView: ctaInView } = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.2,
+    rootMargin: "50px",
   });
 
   return (
@@ -34,7 +41,7 @@ const About = () => {
       {/* Hero Section */}
       <div 
         ref={contentRef}
-        className={`container mx-auto px-4 py-24 transition-all duration-1000 transform perspective-1000
+        className={`container mx-auto px-4 py-24 transition-all duration-700 transform
           ${contentInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
         <div className="max-w-3xl mx-auto text-center group perspective-1000">
@@ -53,7 +60,7 @@ const About = () => {
       {/* Values Section */}
       <div 
         ref={valuesRef}
-        className={`bg-white py-24 transition-all duration-1000 transform
+        className={`bg-white py-24 transition-all duration-700 transform
           ${valuesInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
         <div className="container mx-auto px-4">
@@ -80,7 +87,7 @@ const About = () => {
       {/* Team Section */}
       <div 
         ref={teamRef}
-        className={`py-24 transition-all duration-1000 transform
+        className={`py-24 transition-all duration-700 transform
           ${teamInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
         <div className="container mx-auto px-4">
@@ -108,7 +115,7 @@ const About = () => {
       {/* Achievements Section */}
       <div 
         ref={achievementsRef}
-        className={`bg-white py-24 transition-all duration-1000 transform
+        className={`bg-white py-24 transition-all duration-700 transform
           ${achievementsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
         <div className="container mx-auto px-4">
@@ -138,7 +145,7 @@ const About = () => {
       {/* CTA Section */}
       <div 
         ref={ctaRef}
-        className={`py-24 transition-all duration-1000 transform
+        className={`py-24 transition-all duration-700 transform
           ${ctaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
         <div className="container mx-auto px-4">
