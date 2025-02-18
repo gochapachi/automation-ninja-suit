@@ -10,22 +10,43 @@ const About = () => {
   const { ref } = useInView({
     triggerOnce: true,
     threshold: 0.1,
-    onChange: (inView) => {
-      if (inView) {
-        // Delay the visibility change to prevent ResizeObserver conflicts
-        requestAnimationFrame(() => {
-          setIsVisible(true);
-        });
-      }
-    }
+    rootMargin: "50px",
   });
+
+  useEffect(() => {
+    // Add a small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      const element = ref.current;
+      if (element) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                requestAnimationFrame(() => {
+                  requestAnimationFrame(() => {
+                    setIsVisible(true);
+                  });
+                });
+                observer.disconnect();
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: "50px" }
+        );
+        observer.observe(element);
+        return () => observer.disconnect();
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-gray-100">
-      <div ref={ref}>
+      <div ref={ref} className="opacity-0">
         {/* Hero Section */}
         <div className="container mx-auto px-4 py-24">
-          <div className={`max-w-3xl mx-auto text-center ${isVisible ? 'opacity-100' : 'opacity-0'} duration-700`}>
+          <div className={`max-w-3xl mx-auto text-center ${isVisible ? 'opacity-100' : ''} transition-opacity duration-500`}>
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-6">
               About <span className="text-primary">Anagata IT Solutions</span>
             </h1>
@@ -47,7 +68,7 @@ const About = () => {
               ].map((value) => (
                 <div 
                   key={value.title} 
-                  className={`bg-gray-50 rounded-lg p-6 shadow-sm ${isVisible ? 'opacity-100' : 'opacity-0'} duration-700 aspect-[4/3] flex flex-col`}
+                  className={`bg-gray-50 rounded-lg p-6 shadow-sm ${isVisible ? 'opacity-100' : ''} transition-opacity duration-500 h-48 flex flex-col`}
                 >
                   <value.icon className="w-12 h-12 text-primary mb-4 shrink-0" />
                   <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
@@ -71,7 +92,7 @@ const About = () => {
               ].map((member) => (
                 <div 
                   key={member.name} 
-                  className={`bg-white rounded-lg p-6 shadow-sm ${isVisible ? 'opacity-100' : 'opacity-0'} duration-700 aspect-[3/4] flex flex-col items-center`}
+                  className={`bg-white rounded-lg p-6 shadow-sm ${isVisible ? 'opacity-100' : ''} transition-opacity duration-500 h-72 flex flex-col items-center`}
                 >
                   <div className="w-32 h-32 rounded-full overflow-hidden mb-4 shrink-0">
                     <img 
@@ -104,7 +125,7 @@ const About = () => {
               ].map((achievement) => (
                 <div 
                   key={achievement.label}
-                  className={`bg-gray-50 rounded-lg p-6 shadow-sm ${isVisible ? 'opacity-100' : 'opacity-0'} duration-700 aspect-square flex flex-col justify-center`}
+                  className={`bg-gray-50 rounded-lg p-6 shadow-sm ${isVisible ? 'opacity-100' : ''} transition-opacity duration-500 h-36 flex flex-col justify-center`}
                 >
                   <h3 className="text-3xl font-bold text-primary mb-2">{achievement.number}</h3>
                   <p className="text-gray-600">{achievement.label}</p>
@@ -120,7 +141,7 @@ const About = () => {
         {/* CTA Section */}
         <div className="py-24">
           <div className="container mx-auto px-4">
-            <div className={`max-w-4xl mx-auto text-center bg-white rounded-lg shadow-lg p-12 ${isVisible ? 'opacity-100' : 'opacity-0'} duration-700`}>
+            <div className={`max-w-4xl mx-auto text-center bg-white rounded-lg shadow-lg p-12 ${isVisible ? 'opacity-100' : ''} transition-opacity duration-500`}>
               <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Business?</h2>
               <p className="text-xl text-gray-600 mb-8">
                 Join hundreds of businesses that have already revolutionized their operations with our AI solutions.
