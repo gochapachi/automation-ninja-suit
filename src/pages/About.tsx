@@ -1,57 +1,40 @@
-
 import { Button } from "@/components/ui/button";
 import { useInView } from "react-intersection-observer";
 import { AppointmentBooking } from "@/components/AppointmentBooking";
 import { Rocket, Heart, Trophy, Users, Target, Zap } from "lucide-react";
 
 const About = () => {
-  // Combine observers with higher threshold and rootMargin
-  const { ref: contentRef, inView: contentInView } = useInView({
+  // Single observer with higher threshold and more generous rootMargin
+  const commonObserverProps = {
     triggerOnce: true,
-    threshold: 0.2,
-    rootMargin: "50px",
-  });
+    threshold: 0.1,
+    rootMargin: "100px",
+  };
 
-  const { ref: valuesRef, inView: valuesInView } = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-    rootMargin: "50px",
-  });
+  const { ref: contentRef, inView: contentInView } = useInView(commonObserverProps);
+  const { ref: valuesRef, inView: valuesInView } = useInView(commonObserverProps);
+  const { ref: teamRef, inView: teamInView } = useInView(commonObserverProps);
+  const { ref: achievementsRef, inView: achievementsInView } = useInView(commonObserverProps);
+  const { ref: ctaRef, inView: ctaInView } = useInView(commonObserverProps);
 
-  const { ref: teamRef, inView: teamInView } = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-    rootMargin: "50px",
-  });
-
-  const { ref: achievementsRef, inView: achievementsInView } = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-    rootMargin: "50px",
-  });
-
-  const { ref: ctaRef, inView: ctaInView } = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-    rootMargin: "50px",
-  });
+  const fadeInClass = "transition-opacity duration-500 ease-out";
+  const translateClass = "transition-transform duration-500 ease-out";
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-gray-100">
       {/* Hero Section */}
       <div 
         ref={contentRef}
-        className={`container mx-auto px-4 py-24 transition-all duration-700 transform
+        className={`container mx-auto px-4 py-24 ${fadeInClass} ${translateClass}
           ${contentInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
-        <div className="max-w-3xl mx-auto text-center group perspective-1000">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-6 transform transition-all duration-500 group-hover:scale-110">
-            About <span className="text-primary relative">
+        <div className="max-w-3xl mx-auto text-center">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-6">
+            About <span className="text-primary">
               Anagata IT Solutions
-              <div className="absolute -inset-1 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
             </span>
           </h1>
-          <p className="text-lg text-gray-700 mb-8 transform transition-all duration-500 hover:translate-y-1">
+          <p className="text-lg text-gray-700 mb-8">
             Pioneering the future of automation in India, one innovation at a time.
           </p>
         </div>
@@ -60,7 +43,7 @@ const About = () => {
       {/* Values Section */}
       <div 
         ref={valuesRef}
-        className={`bg-white py-24 transition-all duration-700 transform
+        className={`bg-white py-24 ${fadeInClass} ${translateClass}
           ${valuesInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
         <div className="container mx-auto px-4">
@@ -87,7 +70,7 @@ const About = () => {
       {/* Team Section */}
       <div 
         ref={teamRef}
-        className={`py-24 transition-all duration-700 transform
+        className={`py-24 ${fadeInClass} ${translateClass}
           ${teamInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
         <div className="container mx-auto px-4">
@@ -115,7 +98,7 @@ const About = () => {
       {/* Achievements Section */}
       <div 
         ref={achievementsRef}
-        className={`bg-white py-24 transition-all duration-700 transform
+        className={`bg-white py-24 ${fadeInClass} ${translateClass}
           ${achievementsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
         <div className="container mx-auto px-4">
@@ -145,7 +128,7 @@ const About = () => {
       {/* CTA Section */}
       <div 
         ref={ctaRef}
-        className={`py-24 transition-all duration-700 transform
+        className={`py-24 ${fadeInClass} ${translateClass}
           ${ctaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
         <div className="container mx-auto px-4">
