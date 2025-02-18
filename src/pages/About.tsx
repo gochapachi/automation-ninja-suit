@@ -15,7 +15,7 @@ const About = () => {
       <div ref={ref}>
         {/* Hero Section */}
         <div className="container mx-auto px-4 py-24">
-          <div className={`max-w-3xl mx-auto text-center transition-opacity duration-500 ${inView ? 'opacity-100' : 'opacity-0'}`}>
+          <div className={`max-w-3xl mx-auto text-center ${inView ? 'opacity-100' : 'opacity-0'} duration-300 ease-in-out`}>
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-6">
               About <span className="text-primary">Anagata IT Solutions</span>
             </h1>
@@ -37,7 +37,7 @@ const About = () => {
               ].map((value) => (
                 <div 
                   key={value.title} 
-                  className={`bg-gray-50 rounded-lg p-6 shadow-sm transition-all duration-500 h-[200px] ${inView ? 'opacity-100' : 'opacity-0'}`}
+                  className={`bg-gray-50 rounded-lg p-6 shadow-sm ${inView ? 'opacity-100' : 'opacity-0'} duration-300 ease-in-out aspect-[4/3]`}
                 >
                   <value.icon className="w-12 h-12 text-primary mb-4" />
                   <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
@@ -61,16 +61,18 @@ const About = () => {
               ].map((member) => (
                 <div 
                   key={member.name} 
-                  className={`bg-white rounded-lg p-6 shadow-sm transition-opacity duration-500 h-[300px] ${inView ? 'opacity-100' : 'opacity-0'}`}
+                  className={`bg-white rounded-lg p-6 shadow-sm ${inView ? 'opacity-100' : 'opacity-0'} duration-300 ease-in-out aspect-[3/4]`}
                 >
-                  <img 
-                    src={member.image} 
-                    alt={member.name} 
-                    className="w-32 h-32 rounded-full mx-auto mb-4"
-                    width={128}
-                    height={128}
-                    loading="lazy"
-                  />
+                  <div className="aspect-square w-32 mx-auto mb-4 overflow-hidden rounded-full">
+                    <img 
+                      src={member.image} 
+                      alt={member.name} 
+                      className="w-full h-full object-cover"
+                      width={128}
+                      height={128}
+                      loading="lazy"
+                    />
+                  </div>
                   <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
                   <p className="text-gray-600">{member.role}</p>
                 </div>
@@ -92,7 +94,7 @@ const About = () => {
               ].map((achievement) => (
                 <div 
                   key={achievement.label}
-                  className={`bg-gray-50 rounded-lg p-6 shadow-sm transition-opacity duration-500 h-[150px] ${inView ? 'opacity-100' : 'opacity-0'}`}
+                  className={`bg-gray-50 rounded-lg p-6 shadow-sm ${inView ? 'opacity-100' : 'opacity-0'} duration-300 ease-in-out aspect-square flex flex-col justify-center`}
                 >
                   <h3 className="text-3xl font-bold text-primary mb-2">{achievement.number}</h3>
                   <p className="text-gray-600">{achievement.label}</p>
@@ -108,7 +110,7 @@ const About = () => {
         {/* CTA Section */}
         <div className="py-24">
           <div className="container mx-auto px-4">
-            <div className={`max-w-4xl mx-auto text-center bg-white rounded-lg shadow-lg p-12 transition-opacity duration-500 ${inView ? 'opacity-100' : 'opacity-0'}`}>
+            <div className={`max-w-4xl mx-auto text-center bg-white rounded-lg shadow-lg p-12 ${inView ? 'opacity-100' : 'opacity-0'} duration-300 ease-in-out`}>
               <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Business?</h2>
               <p className="text-xl text-gray-600 mb-8">
                 Join hundreds of businesses that have already revolutionized their operations with our AI solutions.
