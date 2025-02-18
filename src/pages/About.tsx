@@ -17,16 +17,13 @@ const About = () => {
   const { ref: achievementsRef, inView: achievementsInView } = useInView(commonObserverProps);
   const { ref: ctaRef, inView: ctaInView } = useInView(commonObserverProps);
 
-  const fadeInClass = "transition-opacity duration-500 ease-out";
-  const translateClass = "transition-transform duration-500 ease-out";
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-gray-100">
       {/* Hero Section */}
       <div 
         ref={contentRef}
-        className={`container mx-auto px-4 py-24 ${fadeInClass} ${translateClass}
-          ${contentInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        className={`container mx-auto px-4 py-24 transition-all duration-300 ease-out
+          ${contentInView ? 'opacity-100' : 'opacity-0'}`}
       >
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-6">
@@ -43,8 +40,8 @@ const About = () => {
       {/* Values Section */}
       <div 
         ref={valuesRef}
-        className={`bg-white py-24 ${fadeInClass} ${translateClass}
-          ${valuesInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        className={`bg-white py-24 transition-all duration-300 ease-out
+          ${valuesInView ? 'opacity-100' : 'opacity-0'}`}
       >
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-16">Our Core Values</h2>
@@ -54,13 +51,10 @@ const About = () => {
               { icon: Trophy, title: "Excellence", description: "Committed to delivering the best" },
               { icon: Users, title: "Collaboration", description: "Growing together with our clients" }
             ].map((value, index) => (
-              <div key={value.title} className="group perspective-1000">
-                <div className="relative p-6 bg-gray-50 rounded-lg shadow-lg transform transition-all duration-500 hover:scale-105 hover:rotate-3 hover:shadow-xl">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-primary/10 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <value.icon className="w-12 h-12 text-primary mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
-                  <p className="text-gray-600">{value.description}</p>
-                </div>
+              <div key={value.title} className="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <value.icon className="w-12 h-12 text-primary mb-4" />
+                <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
+                <p className="text-gray-600">{value.description}</p>
               </div>
             ))}
           </div>
@@ -70,8 +64,8 @@ const About = () => {
       {/* Team Section */}
       <div 
         ref={teamRef}
-        className={`py-24 ${fadeInClass} ${translateClass}
-          ${teamInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        className={`py-24 transition-all duration-300 ease-out
+          ${teamInView ? 'opacity-100' : 'opacity-0'}`}
       >
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-16">Meet Our Team</h2>
@@ -82,13 +76,10 @@ const About = () => {
               { name: "Amit Patel", role: "Head of Innovation", image: "https://i.pravatar.cc/150?img=3" },
               { name: "Neha Gupta", role: "Lead Developer", image: "https://i.pravatar.cc/150?img=4" }
             ].map((member) => (
-              <div key={member.name} className="group perspective-1000">
-                <div className="relative p-6 bg-white rounded-lg shadow-lg transform transition-all duration-500 hover:scale-105 hover:-rotate-3 hover:shadow-xl text-center">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-primary/10 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <img src={member.image} alt={member.name} className="w-32 h-32 rounded-full mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-                  <p className="text-gray-600">{member.role}</p>
-                </div>
+              <div key={member.name} className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <img src={member.image} alt={member.name} className="w-32 h-32 rounded-full mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
+                <p className="text-gray-600">{member.role}</p>
               </div>
             ))}
           </div>
@@ -98,8 +89,8 @@ const About = () => {
       {/* Achievements Section */}
       <div 
         ref={achievementsRef}
-        className={`bg-white py-24 ${fadeInClass} ${translateClass}
-          ${achievementsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        className={`bg-white py-24 transition-all duration-300 ease-out
+          ${achievementsInView ? 'opacity-100' : 'opacity-0'}`}
       >
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-16">Our Achievements</h2>
@@ -128,8 +119,8 @@ const About = () => {
       {/* CTA Section */}
       <div 
         ref={ctaRef}
-        className={`py-24 ${fadeInClass} ${translateClass}
-          ${ctaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        className={`py-24 transition-all duration-300 ease-out
+          ${ctaInView ? 'opacity-100' : 'opacity-0'}`}
       >
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center perspective-1000">
