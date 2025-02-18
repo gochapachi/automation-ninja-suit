@@ -7,39 +7,21 @@ import { useEffect, useState } from "react";
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const { ref } = useInView({
+  const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
     rootMargin: "50px",
   });
 
   useEffect(() => {
-    // Add a small delay to ensure DOM is ready
-    const timer = setTimeout(() => {
-      const element = ref.current;
-      if (element) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                requestAnimationFrame(() => {
-                  requestAnimationFrame(() => {
-                    setIsVisible(true);
-                  });
-                });
-                observer.disconnect();
-              }
-            });
-          },
-          { threshold: 0.1, rootMargin: "50px" }
-        );
-        observer.observe(element);
-        return () => observer.disconnect();
-      }
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
+    if (inView) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setIsVisible(true);
+        });
+      });
+    }
+  }, [inView]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-gray-100">
